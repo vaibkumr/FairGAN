@@ -9,6 +9,10 @@ class Generator(nn.Module):
     sexist Discriminator.
     """
     def __init__(self, nz, nd=300):
+        """
+        @param nz is dimension of noise
+        @param nd is dimension of word embedding
+        """
         super().__init__()
         self.fc1 = nn.Linear(nz, 300)
         self.act = nn.LeakyReLU()
@@ -36,6 +40,9 @@ class SexistDiscriminator(nn.Module):
     male or female. It's goal is to become the most sexist thing on earth.
     """
     def __init__(self, nd=300):
+        """
+        @param nd is dimension of word embedding
+        """
         super().__init__()
         self.model = nn.Sequential(
             nn.Linear(nd, 1024),
@@ -49,5 +56,8 @@ class SexistDiscriminator(nn.Module):
         self.sig = nn.Sigmoid()
 
     def forward(self, x):
+        """
+        @param x is a word embedding
+        """
         x = self.model(x)
         return self.sig(x).squeeze()
