@@ -14,12 +14,12 @@ Word embeddings like GloVe are gender biased. There has been many approaches to 
 - Run `FairGAN.py` to create, train and save generator and discriminator models.
 
 ## Generator
-Input: Random noise and original word embedding
-Output: New word embedding
+- Input: Random noise and original word embedding
+- Output: New word embedding
 
 ## Discriminator
-Input: Word embedding
-Output: Gender (1 for male, 0 for female, we assume that gender is binary)
+- Input: Word embedding
+- Output: Gender (1 for male, 0 for female, we assume that gender is binary)
 
 ## Note
 With some more innovation and work, this project has the potential of becoming a research paper. I will try to work more on this as soon as I can find time.
