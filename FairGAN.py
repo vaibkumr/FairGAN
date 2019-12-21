@@ -14,6 +14,7 @@ import we
 from utils import *
 from dataloader import *
 from net import *
+import configparser
 
 #Reproducibility
 SEED = 42 #The answer to everything
@@ -37,18 +38,21 @@ def test_generator(netG, g, device):
             bias_aft = new.dot(torch.Tensor(g).to(device))
             print(f"Word: {word} Similarity: {similarity:.5f} | Bias: {bias_bef:.5f} / {bias_aft:.5f}")
 
+config = configparser.ConfigParser()
+config.read('config/config.ini')
+conf = config['DEFAULT']
 
 # Hyperparameters and other
 EMB = 'data/glove' #path to embedding in vector-vocab format. See we.py to know how this format works.
-words_list_file = "data/toy_debias_list.pkl" #pickle file list of words to debias (small list from bulakbasi et. al.)
-bs = 128
-nz = 128
-lrd = 1e-3
-lrg = 1e-2
-beta1 = 0.5
-epochs = 1000
-PATH_D = "models/D.pth"
-PATH_G = "models/G.pth"
+words_list_file = conf.get('WORDS_LIST_FILE') #pickle file list of words to debias (small list from bulakbasi et. al.)
+bs = conf.getint('BS')
+nz = conf.getint('NZ')
+lrd = conf.getflooat('LRD')
+lrg = conf.getfloat('LRG')
+beta1 = conf.getfloat('BETA1')
+epochs = conf.getfloat('EPOCHS')
+PATH_D = conf.get('PATH_D')
+PATH_G = conf.get('PATH_G')
 
 E = we.WordEmbedding(EMB) #Load embedding
 g = gender_subspace_simple(E) #Get gender direction
